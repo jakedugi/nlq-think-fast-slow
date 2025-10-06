@@ -1,1 +1,7 @@
-// TODO: Create tools package.json - this file can be deleted
+{
+  "name": "@myorg/tools",
+  "version": "0.1.0",
+  "description": "// TODO: Create tools package.json - this file can be deleted",
+  "main": "index.ts",
+  "license": "MIT"
+}
