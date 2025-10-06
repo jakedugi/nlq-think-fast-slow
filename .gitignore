@@ -1,0 +1,54 @@
+node_modules
+# Dependency directories
+node_modules/
+.pnpm/
+dist/
+build/
+.next/
+out/
+coverage/
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Environment files and secrets
+.env
+.env.*
+*.env
+*.env.local
+*.env.development
+*.env.production
+*.env.test
+*.secret
+*.key
+*.pem
+
+# IDE and editor folders
+.vscode/
+.idea/
+*.swp
+
+# Misc
+*.tgz
+*.zip
+*.tar
+*.gz
+*.bak
+*.tmp
+yarn.lock
+pnpm-lock.yaml
+package-lock.json
+
+# Turbo and Next.js cache
+.next/cache/
+turbo/
+turbo.json
+
+# Test output
+test-results/
+coverage/
+
+# Local configuration
+*.local
