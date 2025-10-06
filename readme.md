@@ -1,12 +1,33 @@
-# CoAgents Research Canvas Example
+# NLQ DeepResearch
 
-This example demonstrates a research canvas UI.
+A multi-agent system for natural language queries with Fast/Think/Slow processing modes.
 
-**Live demo:** https://examples-coagents-research-canvas-ui.vercel.app/
+## Architecture
 
-Tutorial Video:
+- **apps/ui-research-state-slow-mono**: Next.js frontend with CopilotKit chat interface and model selection
+- **apps/server**: LangGraph host with API adapters (placeholder)
+- **packages/tools**: Domain-level actions (StatsPerform API, web search, summarization) (placeholders)
+- **packages/agent-js**: LangGraph workflows with research agent implementation
+- **packages/shared**: Shared schemas and utilities (placeholder)
 
-[![IMAGE ALT TEXT](http://img.youtube.com/vi/0b6BVqPwqA0/0.jpg)](http://www.youtube.com/watch?v=0b6BVqPwqA0 "Build Agent-Native Apps with LangGraph & CoAgents (tutorial)")
+## Development
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start development servers
+pnpm dev
+
+# Build all packages
+pnpm build
+```
+
+## Agent Modes
+
+- **Fast**: Quick responses with minimal reasoning (placeholder)
+- **Think**: Balanced reasoning with moderate depth (placeholder)
+- **DeepResearch**: Comprehensive analysis with extensive tool usage (implemented)
 
 
 ---
