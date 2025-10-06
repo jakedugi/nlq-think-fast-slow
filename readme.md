@@ -40,30 +40,40 @@ pnpm build
 
 First, install the backend dependencies:
 
-### Python SDK
+### Quick Start
 
-```sh
-cd agent-py
-poetry install
-```
+1. **Set up environment:**
+   ```bash
+   # Copy the template and add your API keys
+   cp .env.example .env.local
+   # Edit .env.local with your actual API keys
+   ```
 
-### JS-SDK
+2. **Install and run:**
+   ```bash
+   pnpm install
+   pnpm dev
+   ```
 
-```sh
-cd agent-js
-pnpm install
-```
+### Environment Setup
 
-Then, create a `.env` file inside `./agent-py` or `./agent-js` with the following:
+**One .env.local at the root level** contains all secrets for local development. This keeps your monorepo simple and scalable.
 
-```
-OPENAI_API_KEY=...
-TAVILY_API_KEY=...
-LANGSMITH_API_KEY=...(JS ONLY)
-```
+**Required API Keys** (add these to `.env.local`):
+- `OPENAI_API_KEY`: Your OpenAI API key
+- `TAVILY_API_KEY`: Your Tavily search API key
+- `LANGSMITH_API_KEY`: Your LangSmith API key (for tracing)
+- `GROQ_API_KEY`: Your Groq API key (optional)
+- `NEXT_PUBLIC_COPILOTKIT_API_KEY`: Your CopilotKit public key
 
-⚠️ IMPORTANT:
-Make sure the OpenAI API Key you provide, supports gpt-4o.
+**Optional Keys:**
+- `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`: For observability
+- `LGC_DEPLOYMENT_URL`: For LangGraph Cloud deployment
+
+**Security Note:** Never commit `.env.local`. Only `.env.example` is version controlled.
+
+**Future Scaling:** If you need app-specific secrets later, add individual `.env` files in app directories (e.g., `apps/server/.env`) for conflicting configurations.
+
 
 Then, run the demo:
 
