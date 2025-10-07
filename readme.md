@@ -60,16 +60,40 @@ First, install the backend dependencies:
 **One .env.local at the root level** contains all secrets for local development. This keeps your monorepo simple and scalable.
 
 **Required API Keys** (add these to `.env.local`):
-- `OPENAI_API_KEY`: Your OpenAI API key
+- `GROQ_API_KEY`: Your Groq API key
 - `TAVILY_API_KEY`: Your Tavily search API key
 - `LANGSMITH_API_KEY`: Your LangSmith API key (for tracing)
-- `GROQ_API_KEY`: Your Groq API key (optional)
 - `NEXT_PUBLIC_COPILOTKIT_API_KEY`: Your CopilotKit public key
 
 **Optional Keys:**
 - `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`: For observability
 - `LGC_DEPLOYMENT_URL`: For LangGraph Cloud deployment
+# 1. Install dependencies
+cd /Users/jakedugan/Projects/nlq-think-fast-slow
+pnpm install
 
+# 2. Create root .env.local (UI environment)
+cat > .env.local << 'EOF'
+GROQ_API_KEY=gsk-your-groq-key-here
+TAVILY_API_KEY=tv-your-tavily-key-here  
+LANGSMITH_API_KEY=ls-your-langsmith-key-here
+NEXT_PUBLIC_API_BASE_URL=http://localhost:3001
+REMOTE_ACTION_URL=http://localhost:8000/copilotkit
+EOF
+
+# 3. Create agent .env (Backend environment)
+cat > packages/agent-js/.env << 'EOF'
+GROQ_API_KEY=gsk-your-groq-key-here
+TAVILY_API_KEY=tv-your-tavily-key-here
+LANGSMITH_API_KEY=ls-your-langsmith-key-here
+EOF
+
+# 4. Start frontend
+pnpm run dev
+
+# 5. In another terminal, start backend
+cd packages/agent-js
+npx @langchain/langgraph-cli dev --host localhost --port 8000
 **Security Note:** Never commit `.env.local`. Only `.env.example` is version controlled.
 
 **Future Scaling:** If you need app-specific secrets later, add individual `.env` files in app directories (e.g., `apps/server/.env`) for conflicting configurations.

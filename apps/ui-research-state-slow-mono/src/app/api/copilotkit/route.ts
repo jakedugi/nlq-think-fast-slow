@@ -1,16 +1,16 @@
 import {
   CopilotRuntime,
-  OpenAIAdapter,
+  GroqAdapter,
   copilotRuntimeNextJSAppRouterEndpoint,
   copilotKitEndpoint,
   LangGraphAgent,
   LangGraphHttpAgent,
 } from "@copilotkit/runtime";
-import OpenAI from "openai";
+import Groq from "groq-sdk";
 import { NextRequest } from "next/server";
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-const llmAdapter = new OpenAIAdapter({ openai } as any);
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+const llmAdapter = new GroqAdapter({ groq } as any);
 const langsmithApiKey = process.env.LANGSMITH_API_KEY as string;
 
 export const POST = async (req: NextRequest) => {

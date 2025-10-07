@@ -3,28 +3,43 @@
  */
 import { BaseChatModel } from "@langchain/core/language_models/chat_models";
 import { AgentState } from "./state";
-import { ChatOpenAI } from "@langchain/openai";
-import { ChatAnthropic } from "@langchain/anthropic";
-import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
+import { ChatGroq } from "@langchain/groq";
+
 
 function getModel(state: AgentState): BaseChatModel {
   /**
    * Get a model based on the environment variable.
    */
   const stateModel = state.model;
-  const model = process.env.MODEL || stateModel;
+  const model = process.env.MODEL || stateModel || "mixtral-8x7b-32768";
 
   console.log(`Using model: ${model}`);
+
+  // Groq models - check if the model ID is a known Groq model
+  if (model === "mixtral-8x7b-32768" || model === "llama2-70b-4096" ||
+      model === "llama2-7b-4096" || model === "gemma-7b-it" ||
+      model === "openai/gpt-oss-20b" || model.startsWith("groq")) {
+    return new ChatGroq({
+      apiKey: process.env.GROQ_API_KEY,
+      model: model,
+      temperature: 0.1,
+      maxTokens: 8192,
+      topP: 1,
+      streaming: true,
+    });
+  }
 
   if (model === "openai") {
     return new ChatOpenAI({ temperature: 0, model: "gpt-4o" });
   }
+
   if (model === "anthropic") {
     return new ChatAnthropic({
       temperature: 0,
       modelName: "claude-3-5-sonnet-20240620",
     });
   }
+
   if (model === "google_genai") {
     return new ChatGoogleGenerativeAI({
       temperature: 0,
@@ -33,7 +48,7 @@ function getModel(state: AgentState): BaseChatModel {
     });
   }
 
-  throw new Error("Invalid model specified");
+  throw new Error(`Invalid model specified: ${model}`);
 }
 
 export { getModel };

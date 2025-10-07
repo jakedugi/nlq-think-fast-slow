@@ -74,7 +74,7 @@ export async function chat_node(state: AgentState, config: RunnableConfig) {
 
   const model = getModel(state);
   const invokeArgs: Record<string, unknown> = {};
-  if (model.constructor.name === "ChatOpenAI") {
+  if (model.constructor.name === "ChatOpenAI" || model.constructor.name === "ChatGroq") {
     invokeArgs["parallel_tool_calls"] = false;
   }
 
